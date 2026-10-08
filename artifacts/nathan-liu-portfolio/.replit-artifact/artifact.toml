@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Nathan Liu | Portfolio"
+description = "A personal portfolio for Nathan Liu, an NYU computer science and data science student, highlighting his data science, AI, and full-stack experience, selected projects, GitHub and LinkedIn profiles, and downloadable résumé."
+version = "1.0.0"
+id = "artifacts/nathan-liu-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21313
+
+[services.development]
+run = "pnpm --filter @workspace/nathan-liu-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/nathan-liu-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/nathan-liu-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21313"
+BASE_PATH = "/"
